@@ -275,8 +275,6 @@ async def _handle_set_active(ws: WebSocket, session: Session, data: dict) -> Non
     except (ValueError, PermissionError) as exc:
         await ws.send_text(json.dumps({"type": "booth:error", "message": str(exc)}))
         return
-    if previous_active and previous_active != target_id:
-        pass
     await manager.broadcast(session.booth_id, {"type": "booth:state", "state": state})
 
 
