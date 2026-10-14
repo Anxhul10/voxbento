@@ -21,14 +21,10 @@ BoothInstance = Literal["primary", "backup"]
 
 # Alphanumeric and hyphens, must start and end with alphanumeric,
 # at least 1 character, no consecutive hyphens.
-_EVENT_SLUG_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 _EVENT_SLUG_MAX_LENGTH = 64
 
-# ISO 639-1: exactly two lowercase ASCII letters.
-_LANGUAGE_CODE_RE = re.compile(r"^[a-z]{2}$")
-
 # Full booth ID: {event_slug}-{language_code}
-# _EVENT_SLUG_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+_EVENT_SLUG_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 _LANGUAGE_CODE_RE = re.compile(r"^[a-z]{2}$")
 _BOOTH_ID_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*-[0-9]+-(?:[a-z]{2}|floor)$")
 
