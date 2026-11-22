@@ -95,7 +95,7 @@ jobs:
             // Checked on the live PR body so it also works for issue_comment events.
             const selfScreenCastchecklist = body =>
               /^- \[[xX]\] Screencast is not required for this PR\.$/m.test((body ?? '').replace(/\r/g, ''));
-            const ~ = selfScreenCastchecklist(currentPr.body);
+            const = selfScreenCastchecklist(currentPr.body);
             // A maintainer manually adding needs-screencast always wins over the checklist.
             const maintainerAddedLabel =
               isPrEvent && context.payload.action === 'labeled' && context.payload.label?.name === LABEL;
