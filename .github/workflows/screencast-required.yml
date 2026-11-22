@@ -16,6 +16,7 @@
 #      - No video after REMIND_AFTER_HOURS -> one reminder is posted.
 #      - No video after CLOSE_AFTER_HOURS  -> closing message is posted and the PR is closed.
 #   Maintainers can remove the label by hand at any time to bypass the requirement.
+# test pr for screencast workflow
 
 name: Screencast required
 
