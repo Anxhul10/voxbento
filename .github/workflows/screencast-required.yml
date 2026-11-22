@@ -57,19 +57,6 @@ jobs:
             const hours = process.env.CLOSE_AFTER_HOURS;
             const APPROVED_MARKER = '<!-- screencast-approved -->';
 
-            const selfScreenCastchecklist = body =>
-              /^- \[[xX]\] Screencast is not required for this PR\.$/m.test((body ?? '').replace(/\r/g, ''));
-
-            if(selfScreenCastchecklist) {
-              await github.rest.issues.addLabels({
-                owner,
-                repo,
-                issue_number: issueNumber,
-                labels: [EXEMPTION_REQUEST_LABEL],
-              });
-              return;
-            }
-
             // Video detection helper
             const ASSET_RE = /https:\/\/github\.com\/user-attachments\/assets\/[\w-]+/gi;
             const LINK_RE = /https:\/\/[^\s)"'<>]+\.(mp4|mov|webm|mkv|avi|flv|m4v)\b|https:\/\/[^\s)"'<>]*(?:screencast|screen[-_]?recording|demo|preview)[^\s)"'<>]*\.gif\b|https:\/\/(www\.)?(youtube\.com|youtu\.be|loom\.com|vimeo\.com|streamable\.com|asciinema\.org|cleanshot\.cloud|drive\.google\.com\/(?:file\/d|open))\/\S+/i;
@@ -88,6 +75,20 @@ jobs:
 
             const isPrEvent = context.eventName === 'pull_request_target';
             const issueNumber = isPrEvent ? context.payload.pull_request.number : context.payload.issue.number;
+
+            // Handle screencast exemption requests from the PR checklist
+            const selfScreenCastchecklist = body =>
+              /^- \[[xX]\] Screencast is not required for this PR\.$/m.test((body ?? '').replace(/\r/g, ''));
+
+            if(selfScreenCastchecklist) {
+              await github.rest.issues.addLabels({
+                owner,
+                repo,
+                issue_number: issueNumber,
+                labels: [EXEMPTION_REQUEST_LABEL],
+              });
+              return;
+            }
 
             // Fetch live PR details to avoid cached or stale data
             const { data: currentPr } = await github.rest.pulls.get({
