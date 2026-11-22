@@ -54,6 +54,7 @@ jobs:
           script: |
             const { owner, repo } = context.repo;
             const LABEL = process.env.LABEL;
+            const EXEMPTION_REQUEST_LABEL = process.env.EXEMPTION_REQUEST_LABEL;
             const hours = process.env.CLOSE_AFTER_HOURS;
             const APPROVED_MARKER = '<!-- screencast-approved -->';
 
